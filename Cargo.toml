@@ -1,0 +1,10 @@
+[package]
+name = "mandelbrot-gfx-rs"
+version = "0.1.0"
+authors = ["Harry Stern <hcs@meow.sh>"]
+
+[dependencies]
+gfx = "0.14"
+gfx_window_glutin = "0.14"
+glutin = "0.7"
+nalgebra = "0.11"

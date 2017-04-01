@@ -1,0 +1,1 @@
+I wanted to try out gfx-rs and also realized I'd never written a Mandelbrot set renderer in glsl so I did both and this is that.
