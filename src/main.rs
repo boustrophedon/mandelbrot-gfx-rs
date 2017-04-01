@@ -21,6 +21,7 @@ gfx_defines!{
 
     pipeline pipe {
         vbuf: gfx::VertexBuffer<Vertex> = (),
+        aspect: gfx::Global<f32> = "aspect",
         scale: gfx::Global<f32> = "scale",
         position: gfx::Global<[f32; 2]> = "position",
         out: gfx::RenderTarget<ColorFormat> = "frag_color",
@@ -64,6 +65,7 @@ fn main() {
     let (vertex_buffer, slice) = factory.create_vertex_buffer_with_slice(&SQUARE, &SQUARE_INDICES[..]);
     let mut data = pipe::Data {
         vbuf: vertex_buffer,
+        aspect: {let (x,y) = window.get_inner_size_pixels().unwrap(); (x as f32)/(y as f32)},
         scale: 2.5,
         position: [-0.5, 0.0],
         out: main_color
@@ -84,6 +86,7 @@ fn main() {
                 glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Down)) => {data.position[1] -= 0.2*data.scale;}
                 glutin::Event::Resized(_width, _height) => {
                     gfx_window_glutin::update_views(&window, &mut data.out, &mut main_depth);
+                    data.aspect = {let (x,y) = window.get_inner_size_pixels().unwrap(); (x as f32)/(y as f32)};
                 },
                 _ => {},
             }

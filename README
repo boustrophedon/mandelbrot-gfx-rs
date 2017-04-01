@@ -1,1 +1,3 @@
 I wanted to try out gfx-rs and also realized I'd never written a Mandelbrot set renderer in glsl so I did both and this is that.
+
+Controls are arrow keys to move and pg up/down to zoom in/out. We don't get infinite zoom due to the finite precision of floats. I might try adding support for doubles but it seems like gfx doesn't support double-precision uniforms maybe.

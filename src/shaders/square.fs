@@ -1,6 +1,6 @@
 #version 150
 
-
+uniform float aspect;
 uniform float scale;
 uniform vec2 position;
 
@@ -18,17 +18,17 @@ vec2 mandelbrot_iter(vec2 z, vec2 c) {
 }
 
 void main() {
-
   vec2 c = uv;
   // correct for window aspect ratio
-  c.x = (c.x)*(1280.0/720.0);
+  c.x = (c.x)*aspect;
   c = scale*c + position;
 
 
   bool inside = true;
 
   vec2 z = vec2(0, 0);
-  for (int iters = 0; iters < 100; iters++) {
+  float iters = 0.0;
+  for (; iters < 300; iters+=1.0) {
     z = mandelbrot_iter(z, c);
     if (dot(z,z) > 4.0) {
       inside = false;
@@ -39,7 +39,12 @@ void main() {
   if (inside) {
     frag_color = vec4(0.0, 0.0, 0.0, 1.0);
   }
-  else {
+  else if (iters < 3.0) {
     frag_color = vec4(1.0, 1.0, 1.0, 1.0);
+  }
+  else {
+    // fake stepped
+    //frag_color = round(10*mix(vec4(1.0, 0.1, 0.5, 1.0), vec4(0.0, 0.0, 1.0, 1.0), iters/300))/10;
+    frag_color = mix(vec4(1.0, 0.1, 0.5, 1.0), vec4(0.0, 0.0, 1.0, 1.0), iters/300);
   }
 }
