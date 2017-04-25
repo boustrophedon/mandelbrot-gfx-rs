@@ -75,12 +75,18 @@ fn main() {
             match event {
                 glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Escape)) |
                 glutin::Event::Closed => {running = false},
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::PageUp)) => {data.scale -= 0.2*data.scale;},
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::PageDown)) => {data.scale += 0.2*data.scale;},
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Left)) => {data.position[0] -= 0.2*data.scale;}
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Right)) => {data.position[0] += 0.2*data.scale;}
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Up)) => {data.position[1] += 0.2*data.scale;}
-                glutin::Event::KeyboardInput(_, _, Some(glutin::VirtualKeyCode::Down)) => {data.position[1] -= 0.2*data.scale;}
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::PageUp)) => 
+                    {data.scale -= 0.2*data.scale;},
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::PageDown)) => 
+                    {data.scale += 0.2*data.scale;},
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::Left)) => 
+                    {data.position[0] -= 0.2*data.scale;}
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::Right)) => 
+                    {data.position[0] += 0.2*data.scale;}
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::Up)) => 
+                    {data.position[1] += 0.2*data.scale;}
+                glutin::Event::KeyboardInput(glutin::ElementState::Pressed, _, Some(glutin::VirtualKeyCode::Down)) => 
+                    {data.position[1] -= 0.2*data.scale;}
                 glutin::Event::Resized(_width, _height) => {
                     gfx_window_glutin::update_views(&window, &mut data.out, &mut main_depth);
                     data.aspect = {let (x,y) = window.get_inner_size_pixels().unwrap(); (x as f32)/(y as f32)};
